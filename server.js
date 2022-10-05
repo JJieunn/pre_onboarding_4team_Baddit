@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(routes);
 
 const server = http.createServer(app);
-const PORT = process.env.PORT || 10010;
+const PORT = process.env.PORT || 8000;
 
 const start = async () => {
   // 서버를 시작하는 함수입니다.
