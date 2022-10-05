@@ -1,17 +1,12 @@
+const recordServices = require('../services/records_get');
+
 const getRecords = async (req, res) => {
   try {
-    const price = req.body.price;
-    const user_id = req.body.user_id;
-    const product_detail_id = req.body.product_detail_id;
-    const product_id = req.body.product_id;
-    const sell = await sellServices.getRecords(
-      price,
-      user_id,
-      product_detail_id,
-      product_id
-    );
-    return res.status(200).json({ message: 'CREATED' });
-  } catch (err) {
+    const userId = req.params.userId;
+    const data = await recordServices.getRecords(userId);
+
+    return res.status(200).json(data);
+  } catch (error) {
     next(err);
   }
 };

@@ -2,5 +2,6 @@ const { Router } = require('express');
 const router = Router();
 const { getRecords } = require('../controllers/records_get');
 
-router.post('/recordsget', getRecords);
+router.get('/recordsget/:userId', getRecords);
+
 module.exports = router;
