@@ -1,14 +1,15 @@
 const getUsersDao = require('../models/users_get')
 
 const getUsers = async (filter) => {
+  
   if(filter === 'active') { 
-    filter = '%***%'
+    filter = "WHERE user_name NOT LIKE '%***%'"
     const users = await getUsersDao.getUsers(filter);
     return users;
-  } else if(!filter) {
-    const users = await getUsersDao.getUsers();
-    return users;
-  }
+  } 
+
+  const users = await getUsersDao.getUsers();
+  return users;
 }
 
 module.exports = {
