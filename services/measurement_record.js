@@ -1,21 +1,5 @@
-const measurementDao = require("../models/measurement_insert");
-/*
---type 값은 하나라도 있어야 함 없으면 err--
--- 중복된 type이 들어오면 err --
-어깨 굴곡이랑 신전은 한 세트 (값이 둘다 있거나 둘다 없어야 함) 둘 중 하나만 들어오면 err
---값의 유효성 검사 필요 정수가 아니거나 범위를 벗어나면 err--
-- 손목 가동성 0~90
-- 어깨 굴곡 30~170
-- 어깨 신전 -60~-30
-- 보행 0~100
-- 호흡 균형 : -100 ~ 100
+const measurementRecordDao = require("../models/measurement_record");
 
-손목 가동성
-어깨 굴곡
-어깨 신전
-보행
-호흡 균형
-*/
 const throwErrMsg = (msg) => {
   const error = new Error({ message: msg}.message);
   error.statusCode = 400;
@@ -32,7 +16,7 @@ const measurementInsert = async (params) => {
     type_ids.push(value.type_id)
   });
 
-  const record_id = await measurementDao.measuremenRecordInsert(params.weight, params.user_id);
+  const record_id = await measurementRecordDao.measuremenRecordInsert(params.weight, params.user_id);
 
   // 중복 체크
   for(let i=1; i<measurement_data.length; i++){
@@ -44,7 +28,7 @@ const measurementInsert = async (params) => {
     let type_id = measurement_data[i].type_id;
     let type_value = measurement_data[i].type_value;
     
-    let measurement_type = await measurementDao.selectTypeName(type_id);
+    let measurement_type = await measurementRecordDao.selectTypeName(type_id);
     let type_name = measurement_type[0].type_name;
     let type_range = measurement_type[0].type_range;
 
@@ -54,13 +38,13 @@ const measurementInsert = async (params) => {
     
     // 어깨 굴곡 & 어깨 신전 체크
     if(type_name == "어깨 굴곡") {
-      let result = await measurementDao.setCheck(type_ids, "어깨 신전");
+      let result = await measurementRecordDao.setCheck(type_ids, "어깨 신전");
       if(result.length == 0) 
         throwErrMsg("어깨 굴곡은 어깨 신전과 같이 작성되어야 합니다.");
     }
 
     if(type_name == "어깨 신전") {
-      let result = await measurementDao.setCheck(type_ids, "어깨 굴곡");
+      let result = await measurementRecordDao.setCheck(type_ids, "어깨 굴곡");
       if(result.length == 0) 
         throwErrMsg("어깨 신전은 어깨 굴곡과 같이 작성되어야 합니다.");
     }
@@ -70,15 +54,33 @@ const measurementInsert = async (params) => {
       throwErrMsg("측정 값은 정수로 입력되어야 합니다.");
 
     // 범위 초과 체크
-    let rangeCheck = await measurementDao.rangeCheck(type_value, type_id)
+    let rangeCheck = await measurementRecordDao.rangeCheck(type_value, type_id)
     if(rangeCheck[0].range_check == 0) 
       throwErrMsg(type_name + "의 범위는 " + type_range + "을 초과할 수 없습니다.");
 
     
-    await measurementDao.measuremenDetailRecordInsert(record_id, type_id, type_value);
+    await measurementRecordDao.measuremenDetailRecordInsert(record_id, type_id, type_value);
   }
-
 
 }
 
-module.exports = { measurementInsert }
+const measurementDelete = async (record_id) => {
+  await measurementRecordDao.measurementDetailDelete(record_id);
+  await measurementRecordDao.measurementRecordDelete(record_id);
+}
+
+const getRecords = async (userId, recordId) => {
+  const res = await measurementRecordDao.getRecords(userId, recordId);
+
+  res[0].detail_list = JSON.parse(res[0].detail_list);
+  return res;
+};
+
+const getUserRecords = async userId => {
+  const res = await measurementRecordDao.getUserRecords(userId);
+
+  res[0].measurement_data = JSON.parse(res[0].measurement_data);
+  return res;
+};
+
+module.exports = { measurementInsert, measurementDelete, getRecords, getUserRecords }
