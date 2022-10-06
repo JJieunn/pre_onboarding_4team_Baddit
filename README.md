@@ -127,7 +127,7 @@ Layered achitecture으로 routers - controllers - services - models
      - 탈퇴한 회원을 포함한 전체 회원 목록뿐 아니라 필터링 기능을 추가하여 탈퇴한 회원을 포함하지 않은 목록도 조회할 수 있도록 구현했습니다.
 요청에 query로 filter = active가 들어올 경우에는 로직 내의 if문에 따라, filter 변수에 WHERE문이 할당되어 회원 이름이 ***인 경우를 제외한 목록만 조회하도록 했습니다.
 query가 없는 경우와 filter = active를 제외한 나머지의 경우 에러 처리했습니다. 
-<img width="459" alt="스크린샷 2022-10-06 오후 6 05 23" src="https://user-images.githubusercontent.com/68211978/194272328-6edd69be-cf7e-40ec-9247-47b8775db076.png">
+![image](https://user-images.githubusercontent.com/108791275/194285808-6124dd38-6513-431a-a037-89322ace3fc0.png)
 
 
 - 안 수철 - 회원 등록/삭제
@@ -144,6 +144,14 @@ query가 없는 경우와 filter = active를 제외한 나머지의 경우 에�
 
 
 - 이 해연 - 특정 회원 정보 가져오기(조회)/수정
+    - 특정 회원 정보 가져오기
+      : 회원pk, 이름, 핸드폰번호로 검색 시 일치하는 회원 정보를 출력
+      : 검색 값이 들어오지 않을 경우, 일치하는 회원 정보가 없을 경우 에러 처리
+    - 특정 회원 정보 수정
+      : 회원pk로 조회해 변경하고자 하는 정보 수정
+      : 회원pk가 없을 경우 에러 처리
+- <img width="1220" alt="image" src="https://user-images.githubusercontent.com/108791275/194286071-57968356-314e-49c5-b433-28e0c6de1798.png">
+
 
 
 - 김 현정 - 특정 회원에 대한 측정 기록과 측정 데이터 생성(등록) 및 삭제
