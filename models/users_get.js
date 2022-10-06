@@ -12,7 +12,7 @@ const getUsers = async (filter) => {
     DATE_FORMAT(create_at, '%Y-%m-%d %p %h:%i') AS createAt,
     DATE_FORMAT(update_at, '%Y-%m-%d %p %h:%i') AS updateAt
   FROM users
-  WHERE user_name NOT LIKE '${filter}'`)
+  ${filter}`)
 }
 
 
