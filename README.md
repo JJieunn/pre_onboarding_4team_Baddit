@@ -82,7 +82,7 @@ npm start
 ## 📌 프로젝트 구조
 Layered achitecture으로 routers - controllers - services - models
 ```
-📦Baddit
+📦Bodit
  ┣ 📂controllers
  ┣ 📂database
  ┣ 📂middleware
@@ -97,7 +97,7 @@ Layered achitecture으로 routers - controllers - services - models
 ## ⚙ 패키지
 ```json
 {
-  "name": "-pre_onboarding_4team_baddit",
+  "name": "-pre_onboarding_4team_bodit",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -125,8 +125,8 @@ Layered achitecture으로 routers - controllers - services - models
 ## 📌 구현 기능 소개 및 API 명세
 - 박 지은 - 회원 목록 가져오기
      - 탈퇴한 회원을 포함한 전체 회원 목록뿐 아니라 필터링 기능을 추가하여 탈퇴한 회원을 포함하지 않은 목록도 조회할 수 있도록 구현했습니다.
-요청에 query로 filter = active가 들어올 경우에는 로직 내의 if문에 따라, filter 변수에 WHERE문이 할당되어 회원 이름이 ***인 경우를 제외한 목록만 조회하도록 했습니다.
-query가 없는 경우와 filter = active를 제외한 나머지의 경우 에러 처리했습니다. 
+요청에 query로 filter : active가 들어올 경우에는 로직 내의 if문에 따라, filter 변수에 WHERE문이 할당되어 회원 이름이 ***인 경우를 제외한 목록만 조회하도록 했습니다.
+query가 없는 경우와 filter : active를 제외한 나머지의 경우 에러 처리했습니다. 
 ![image](https://user-images.githubusercontent.com/108791275/194285808-6124dd38-6513-431a-a037-89322ace3fc0.png)
 
 
