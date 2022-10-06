@@ -1,9 +1,10 @@
 const express = require('express');
-const userRouter = require('./users_get');
+const usersGetRouter = require('./users_get');
+const recordsGetRouter = require('./records_get');
 const router = express.Router();
 
-router.get('/ping', (_, res) => { res.send('pong') })
+router.use('/users', usersGetRouter);
+router.use(recordsGetRouter);
 
-router.use('/users', userRouter);
 
 module.exports = router;
