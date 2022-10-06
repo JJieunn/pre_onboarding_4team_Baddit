@@ -1,12 +1,13 @@
 const express = require('express');
 const router = express.Router();
 
+const user = require('./user');
 const recordsUserGetRouter = require('./records');
 const recordsGetRouter = require('./records_get');
-const user = require('./user');
 
-router.use(recordsUserGetRouter);
-router.use(recordsGetRouter);
 router.use('/users', user);
+router.use(recordsGetRouter);
+router.use(recordsUserGetRouter);
+
 
 module.exports = router;
