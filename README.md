@@ -46,13 +46,13 @@
 ### 1.해당 레포지토리를 clone합니다.
 
 ```
-git clone https://github.com/Choi-jeonghoon/pre_onboarding_4team_Baddit
+git clone https://github.com/Choi-jeonghoon/pre_onboarding_4team_Bodit
 ```
 
 ### 2. 다운 받으신 폴더로 들어갑니다
 
 ```
-cd pre_onboarding_4team_Baddit
+cd pre_onboarding_4team_Bodit
 ```
 
 ### 3. 의존성들을 설치합니다.
