@@ -1,8 +1,7 @@
 const myDataSource = require('./init')
 
 
-const getUsers = async (filter) => {
-  console.log("dao - ", filter)
+const getUsers = async () => {
   return await myDataSource.query (`
   SELECT
     user_name AS name,
@@ -11,9 +10,7 @@ const getUsers = async (filter) => {
     phone_number AS phone,
     DATE_FORMAT(create_at, '%Y-%m-%d %p %h:%i') AS create_at,
     DATE_FORMAT(update_at, '%Y-%m-%d %p %h:%i') AS update_at
-  FROM users
-  WHERE user_name NOT LIKE '${filter}'`)
-
+  FROM users`)
 }
 
 
