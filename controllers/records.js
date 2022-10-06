@@ -4,7 +4,7 @@ const getUserRecords = async (req, res) => {
   try {
     const userId = req.params.userId;
     const data = await recordServices.getUserRecords(userId);
-    console.log(data[0])
+
     if (!data[0].id) {
       return res.status(400).json({message: "user does not exist."})
     }
