@@ -1,13 +1,14 @@
-const usersGetDao = require('../models/users_get')
+const getUsersDao = require('../models/users_get')
 
-const getUsers = async () => {
-  return await usersGetDao.getUsers();
-
-  /*  if(!users) {
-    const error = new Error("DONT_GET_USERS")
-    error.statusCode = 400
-    throw error;
-  } */
+const getUsers = async (filter) => {
+  if(filter === 'active') { 
+    filter = '%***%'
+    const users = await getUsersDao.getUsers(filter);
+    return users;
+  } else if(!filter) {
+    const users = await getUsersDao.getUsers();
+    return users;
+  }
 }
 
 module.exports = {
