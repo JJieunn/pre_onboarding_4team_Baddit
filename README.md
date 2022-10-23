@@ -1,10 +1,11 @@
 # Bodit_API
 
 ## 📌 개요
-- 회원관리 및 운동 능력 기록 앱에 대한 RESTful API 서버
+- 회원 관리 및 운동 능력 기록 앱에 대한 RESTful API 서버
 
+<br />
 
-## 📌 구현 기능
+## 📍 구현 기능
 ```
 1. 회원
     - 회원 정보 등록하기
@@ -23,77 +24,78 @@
     - 측정 기록 삭제하기
         - 반드시 연결되어 있는 측정 데이터도 같이 삭제되어야 합니다.
 ```
-## 📌 기능 구현에 대한 조건 및 제약 사항
+<br />
 
+## 📍 기능 구현에 대한 조건 및 제약 사항
+```
 - 측정 기록은 반드시 하나 이상의 측정 데이터와 맵핑됩니다.
     - 따라서, 측정 기록 업로드 시에 측정 데이터 또한 같이 업로드 되어야 합니다.
+    
 - 하나의 측정 기록에 대해서 맵핑되는 측정 데이터의 종류가 중복되는 경우는 없습니다.
     - ex) 측정 기록 하나에는 손목 가동성이 하나이거나 없을 수는 있지만, 둘 이상일 수는 없습니다.
+    
 - 어깨 굴곡과 어깨 신전은 반드시 한 세트입니다.
     - 측정 기록 하나에는 어깨 굴곡과 어깨 신전이 둘 다 없거나 둘 다 하나씩 있습니다.
+    
 - 값의 유효성 검사는 필수입니다.
     - ex) 보행은 0 ~ 100의 정수값입니다. 이 범위를 벗어나거나 타입이 다르면 에러 응답(400)을 리턴합니다.
     
-## 📌 적용 기술
+```
 
-- 사용언어 : `Javascript`
+<br />
+
+## 📍 적용 기술
+
+- 사용 언어 : `JavaScript`
 - 런타임 환경 : `Node.js`
 - 프레임워크 : `Express`
-- 데이터베이스 : `Mysql`
+- 데이터베이스 : `MySQL`
 
-## 실행방법
+<br />
 
-### 1.해당 레포지토리를 clone합니다.
+## 📍 DB 모델링
 
-```
-git clone https://github.com/Choi-jeonghoon/pre_onboarding_4team_Bodit
-```
+- 조건
 
-### 2. 다운 받으신 폴더로 들어갑니다
-
-```
-cd pre_onboarding_4team_Bodit
-```
-
-### 3. 의존성들을 설치합니다.
-
-```
-npm i
-```
-
-### 4. 실행시킵니다!
-
-```
-npm start
-```
-
-### 📌DB 모델링 및  조건 및 졔약사항
-<img width="883" alt="스크린샷 2022-10-06 오후 5 18 06" src="https://user-images.githubusercontent.com/68211978/194260270-3588bed9-7693-410b-aa85-261f176cfb35.png">
-
-
-
-- 조건 및 제약사항
     - 회원과 측정 기록은 1:N 관계입니다.
     - 측정 기록과 측정 데이터는 1:N 관계입니다.
     - 하나의 측정 기록에 대해서 측정 데이터의 종류가 중복되는 경우는 없습니다.
-        - ex) 측정 기록 하나에 손목 가동성이 하나이거나 없을 수는 있지만, 둘 이상일 수는 없습니다.
+<img width="883" alt="스크린샷 2022-10-06 오후 5 18 06" src="https://user-images.githubusercontent.com/68211978/194260270-3588bed9-7693-410b-aa85-261f176cfb35.png">
 
 
-## 📌 프로젝트 구조
-Layered achitecture으로 routers - controllers - services - models
+<br />
+
+## 📍 프로젝트 구조
+- MVC pattern에 Services를 추가한 Layered achitecture로 routes - controllers - services - models 
 ```
-📦Bodit
+📦pre_onboarding_4team_Bodit
  ┣ 📂controllers
- ┣ 📂database
- ┣ 📂middleware
+ │    ┗ users.js
+ │    ┗ measurement_record.js
+ ┗ 📂middleware
  ┣ 📂models
+ │    ┗ init.js
+ │    ┗ users.js
+ │    ┗ measurement_record.js
  ┣ 📂routes
+ │    ┗ index.js
+ │    ┗ users.js
+ │    ┗ measurement_record.js
  ┣ 📂services
- ┣ 📜index.js
+ │    ┗ users.js
+ │    ┗ measurement_record.js
+ ┣ 📂database
+ ┣ 📂modules
+ │    ┗ swagger.js
+ ┣ 📂prisma
+ │    ┗ schema.prisma
+ ┣ 📜.eslintrc
+ ┣ 📜.prettierrc
  ┣ 📜package-lock.json
  ┣ 📜package.json
  ┗ 📜server.js
 ```
+
 ## ⚙ 패키지
 ```json
 {
@@ -121,6 +123,57 @@ Layered achitecture으로 routers - controllers - services - models
   }
 }
 ```
+<br />
+
+## 📍 실행방법
+
+### Step 1. 레포지토리 clone
+
+```
+git clone https://github.com/JJieunn/pre_onboarding_4team_Bodit.git
+```
+
+#### Step 2. 폴더로 이동
+
+```
+cd pre_onboarding_4team_Bodit
+```
+
+#### Step 3. 의존성들 설치
+
+```
+npm install
+```
+
+#### Step 4. .env 파일 생성
+```
+(로컬에 미리 DB/Schema를 만들어 주세요.)
+
+DATABASE_URL = mysql://USERNAME:PASSWORD@127.0.0.1:3306/DATABASE
+TYPEORM_CONNECTION = mysql
+TYPEORM_HOST = 127.0.0.1
+TYPEORM_PORT = 3306
+TYPEORM_USERNAME = 계정
+TYPEORM_PASSWORD = 비밀번호
+TYPEORM_DATABASE = 미리 생성한 데이터베이스 이름
+
+PORT = 애플리케이션 서버 포트 번호
+```
+
+#### Step 4. DB Tables 생성
+
+```
+(database 폴더 내의 sql 파일을 참고하여 로컬 DB에 Tables 생성)
+```
+
+#### Step 5. 실행시킵니다!
+
+```
+npm start
+```
+
+<br />
+
 
 ## 📌 구현 기능 소개 및 API 명세
 - 박 지은 - 회원 목록 가져오기
@@ -129,6 +182,7 @@ Layered achitecture으로 routers - controllers - services - models
 query가 없는 경우와 filter : active를 제외한 나머지의 경우 에러 처리했습니다. 
 ![image](https://user-images.githubusercontent.com/108791275/194285808-6124dd38-6513-431a-a037-89322ace3fc0.png)
 
+<br />
 
 - 안 수철 - 회원 등록/삭제
     - 회원 정보는 실제로 삭제하지 않고, 비식별화 처리합니다.
@@ -142,6 +196,7 @@ query가 없는 경우와 filter : active를 제외한 나머지의 경우 에�
             - 존재하지 않는 회원PK값의 경우 에러 처리. 이미 비식별화 된 회원인 경우 에러 처리.
 <img width="1303" alt="스크린샷 2022-10-06 오후 6 19 12" src="https://user-images.githubusercontent.com/68211978/194275964-2cc77c31-5fd0-46a0-b269-7717c382966f.png">
 
+<br />
 
 - 이 해연 - 특정 회원 정보 가져오기(조회)/수정
     - 특정 회원 정보 가져오기
@@ -152,7 +207,7 @@ query가 없는 경우와 filter : active를 제외한 나머지의 경우 에�
       : 회원pk가 없을 경우 에러 처리
 - <img width="1220" alt="image" src="https://user-images.githubusercontent.com/108791275/194286071-57968356-314e-49c5-b433-28e0c6de1798.png">
 
-
+<br />
 
 - 김 현정 - 특정 회원에 대한 측정 기록과 측정 데이터 생성(등록) 및 삭제
     - 특정 회원에 대한 측정 기록과 측정 데이터 생성(등록)
@@ -173,15 +228,21 @@ query가 없는 경우와 filter : active를 제외한 나머지의 경우 에�
 
 <img width="1292" alt="스크린샷 2022-10-06 오후 6 26 20" src="https://user-images.githubusercontent.com/68211978/194277380-404cf9a3-86b8-4997-9d82-9227ae738cad.png">
 
+<br />
+
 - 최 정훈 - 특정 측정 기록 및 측정 데이터 가져오기
     - 회원이 가지고 있는 측정 데이터값이 여러개 이기때문에 JSON_ARRAYAGG(JSON_OBJECT()사용
       했으며, 특정 회원의 기록값을 보기 위해 회원과 기록의 ID값을 이용하여 아래와 같이 구현했습니다.
 <img width="515" alt="스크린샷 2022-10-06 오후 6 01 58" src="https://user-images.githubusercontent.com/68211978/194271286-20125ff5-8b64-4c63-84ec-72cc5c1e4f34.png">
 
+<br />
+
 - 안 상현 - 특정 회원의 측정 기록들(목록) 가져오기
     - 특정 회원의 측정 기록(측정 기록의 아이디,측정 날짜, 측정시 몸무게) 목록을 가져오게 구현 했습니다.
     - 존재하지 않는 회원의 아이디가 전달될 경우 적절한 에러 처리를 했습니다. 
 <img width="1311" alt="스크린샷 2022-10-06 오후 6 38 51" src="https://user-images.githubusercontent.com/68211978/194280251-1083f5ef-3391-4d96-894d-16d9b0a0b133.png">
+
+<br />
 
 ## 📌 Commit Convention
 ```
